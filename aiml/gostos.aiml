@@ -1,0 +1,46 @@
+<aiml version="1.0.1">
+	<category>
+		<pattern>_ GOSTA DE FILME</pattern>
+		<template>
+			Eu gosto.
+			<think>
+				<set name="topic">FILME</set>
+			</think>
+		</template>
+	</category>
+
+	<category>
+		<pattern>_ ESTA COM FOME</pattern>
+		<template>
+			Sim, morrendo de fome.
+			<think>
+				<set name="topic">COMIDA</set>
+			</think>
+		</template>
+	</category>
+
+	<topic name="FILME">
+		<category>
+			<pattern>_ MAIS GOSTA</pattern>
+			<template>
+				<random>
+					<li>"Gosto de Matrix"</li>
+					<li>"Senhor dos Anéis"</li>
+				</random>
+			</template>
+		</category>
+	</topic>
+
+	<topic name="COMIDA">
+		<category>
+			<pattern>_ MAIS GOSTA</pattern>
+			<template>
+				<random>
+					<li>Gosto de pizza</li>
+					<li>Prefiro sushi</li>
+					<li>Em noites frias, uma boa sopa.</li>
+				</random>
+			</template>
+		</category>
+	</topic>
+</aiml>

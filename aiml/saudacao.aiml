@@ -1,0 +1,28 @@
+<aiml version="1.0.1">
+	<category>
+		<pattern>OI</pattern>
+		<template>
+			<random>
+				<li>Olá, como vai você?</li>
+				<li>Oi.</li>
+				<li>Opa! Beleza...</li>
+			</random>
+		</template>
+	</category>
+
+	<category>
+		<pattern>COMO VAI VOCE *</pattern>
+		<template>
+			<random>
+				<li>Vou bem, obrigado.</li>
+				<li>Tudo bem..</li>
+				<li>Tudo em ordem. Agradeço muito por perguntar.</li>
+				<li>Muito bem, e você?</li>
+			</random>
+		</template>
+	</category>
+	<category>
+		<pattern> * </pattern>
+		<template>Não entendo.</template>
+	</category>
+</aiml>

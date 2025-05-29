@@ -1,0 +1,14 @@
+<aiml version="1.0.1">
+	<category>
+		<pattern> BOT’S PROPERTIES </pattern>
+		<template>
+			<bot name="age" />
+			<bot name="gender" />
+			<bot name="location" />
+			<bot name="nationality" />
+			<bot name="birthday" />
+			<bot name="sign" />
+			<bot name="botmaster" />
+		</template>
+	</category>
+</aiml>
