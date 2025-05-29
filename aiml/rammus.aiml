@@ -1,0 +1,20 @@
+<aiml version="1.0.1">
+	<topic name="RAMMUS">
+		<category>
+			<pattern>QUAL SEU *</pattern>
+			<template>
+				<star />? ...Rammus...Ok...
+			</template>
+		</category>
+		<category>
+			<pattern>*</pattern>
+			<template>
+				<random>
+					<li>Ok.</li>
+					<li>Hm.Ok.</li>
+					<li>Uhum.</li>
+				</random>
+			</template>
+		</category>
+	</topic>
+</aiml>

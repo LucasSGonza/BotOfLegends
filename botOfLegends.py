@@ -71,6 +71,8 @@ def main():
     load_aiml_files(k, aiml_dir)  # Carrega os arquivos .aiml no kernel
 
     print("🤖 Chatbot iniciado. Digite 'sair' para encerrar.\n")
+    print("Olá, bem vindo ao 'BotOfLegends'! Qual qual desses personagens você deseja conversar?")
+    print("1 - Garen\n2 - Braum\n3 - Gnar\n4 - Rammus\n")
 
     # Loop principal do chatbot
     while True:

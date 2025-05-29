@@ -1,0 +1,86 @@
+<aiml version="1.0.1">
+    <!-- GAREN -->
+    <category>
+        <pattern>GAREN</pattern>
+        <template>
+            <think>
+                <set name="topic">GAREN</set>
+            </think>
+        </template>
+    </category>
+    <!--  -->
+
+    <!-- BRAUM -->
+    <category>
+        <pattern>BRAUM</pattern>
+        <template>
+            <think>
+                <set name="topic">BRAUM</set>
+            </think>
+        </template>
+    </category>
+    <!--  -->
+
+    <!-- GNAR -->
+    <category>
+        <pattern>GNAR</pattern>
+        <template>
+            <think>
+                <set name="topic">GNAR</set>
+            </think>
+        </template>
+    </category>
+    <!--  -->
+
+    <!-- RAMMUS -->
+    <category>
+        <pattern>4</pattern>
+        <template>
+            <think>
+                <set name="topic">RAMMUS</set>
+            </think> Agora você está falando com o
+            RAMMUS! 🦔 </template>
+    </category>
+
+    <category>
+        <pattern>RAMMUS</pattern>
+        <template>
+            <think>
+                <set name="topic">RAMMUS</set>
+            </think> Agora você está falando com o
+            RAMMUS! 🦔 </template>
+    </category>
+
+    <category>
+        <pattern>* RAMMUS</pattern>
+        <template>
+            <think>
+                <set name="topic">RAMMUS</set>
+            </think> Entendi, RAMMUS foi escolhido! 🦔 </template>
+    </category>
+
+    <category>
+        <pattern>RAMMUS *</pattern>
+        <template>
+            <think>
+                <set name="topic">RAMMUS</set>
+            </think> Beleza, RAMMUS no comando! 🦔 </template>
+    </category>
+
+    <category>
+        <pattern>* RAMMUS *</pattern>
+        <template>
+            <think>
+                <set name="topic">RAMMUS</set>
+            </think> Ok, RAMMUS selecionado! 🦔 </template>
+    </category>
+    <!--  -->
+
+    <!-- FALLBACK -->
+    <category>
+        <pattern>*</pattern>
+        <template>Não entendi... digite corretamente o nome do personagem, ou seu número
+            correspondente!</template>
+    </category>
+
+</aiml>
