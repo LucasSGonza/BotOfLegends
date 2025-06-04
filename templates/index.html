@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bot of Legends</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 2em;
+        background-color: #f0f0f0;
+      }
+      #chat {
+        max-width: 500px;
+        margin: auto;
+        border: 1px solid #ccc;
+        padding: 1em;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .message {
+        margin: 0.5em 0;
+        padding: 0.5em;
+      }
+      .user {
+        text-align: right;
+        color: black;
+      }
+      .bot {
+        text-align: left;
+        color: green;
+      }
+      #input {
+        width: 75%;
+        padding: 0.5em;
+      }
+      #send {
+        padding: 0.5em 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chat">
+      <div id="messages"></div>
+      <input
+        id="input"
+        type="text"
+        placeholder="Digite sua mensagem"
+        onkeypress="if(event.key === 'Enter') send()"
+      />
+      <button id="send" onclick="send()">Enviar</button>
+    </div>
+
+    <script>
+      function appendMessage(cls, text) {
+        const msgBox = document.getElementById("messages");
+        const div = document.createElement("div");
+        div.className = `message ${cls}`;
+        div.innerText = text;
+        msgBox.appendChild(div);
+        msgBox.scrollTop = msgBox.scrollHeight;
+      }
+
+      async function send() {
+        const input = document.getElementById("input");
+        const msg = input.value.trim();
+
+        if (!msg) return;
+
+        appendMessage("user", msg);
+        input.value = "";
+
+        try {
+          const res = await fetch("/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: msg }),
+          });
+
+          const data = await res.json();
+          appendMessage("bot", data.response);
+        } catch (error) {
+          appendMessage("bot", "Erro ao conectar com o servidor.");
+          console.error("Erro na API:", error);
+        }
+      }
+
+      window.onload = function () {
+        appendMessage(
+          "bot",
+          "🤖 Chatbot iniciado. Digite 'sair' para encerrar."
+        );
+        appendMessage(
+          "bot",
+          "Olá, bem vindo ao 'BotOfLegends'! Qual desses personagens você deseja conversar?"
+        );
+        appendMessage("bot", "1 - Garen\n2 - Braum\n3 - Rammus");
+      };
+    </script>
+  </body>
+</html>

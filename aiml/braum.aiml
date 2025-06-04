@@ -1,0 +1,10 @@
+<aiml version="1.0.1">
+    <topic name="BRAUM">
+        <category>
+            <pattern>*</pattern>
+            <template>
+                Braum
+            </template>
+        </category>
+    </topic>
+</aiml>

@@ -1,40 +1,104 @@
 <aiml version="1.0.1">
     <!-- GAREN -->
     <category>
+        <pattern>1</pattern>
+        <template>
+            <think>
+                <set name="topic">GAREN</set>
+                <set name="personagem_escolhido">sim</set>
+            </think> Garen selecionado! 👑
+            Agora você pode conversar com ele. </template>
+    </category>
+
+    <category>
         <pattern>GAREN</pattern>
         <template>
             <think>
                 <set name="topic">GAREN</set>
-            </think>
-        </template>
+                <set name="personagem_escolhido">sim</set>
+            </think> Garen selecionado! 👑
+            Agora você pode conversar com ele. </template>
+    </category>
+
+    <category>
+        <pattern>* GAREN</pattern>
+        <template>
+            <think>
+                <set name="topic">GAREN</set>
+            </think> Garen selecionado! 👑 Agora você
+            pode conversar com ele. </template>
+    </category>
+
+    <category>
+        <pattern>GAREN *</pattern>
+        <template>
+            <think>
+                <set name="topic">GAREN</set>
+            </think> Garen selecionado! 👑 Agora você
+            pode conversar com ele. </template>
+    </category>
+
+    <category>
+        <pattern>* GAREN *</pattern>
+        <template>
+            <think>
+                <set name="topic">GAREN</set>
+            </think> Garen selecionado! 👑 Agora você
+            pode conversar com ele. </template>
     </category>
     <!--  -->
 
     <!-- BRAUM -->
     <category>
+        <pattern>2</pattern>
+        <template>
+            <think>
+                <set name="topic">BRAUM</set>
+                <set name="personagem_escolhido">sim</set>
+            </think> Coração é o músculo
+            mais forte! 🩵</template>
+    </category>
+
+    <category>
         <pattern>BRAUM</pattern>
         <template>
             <think>
                 <set name="topic">BRAUM</set>
-            </think>
-        </template>
+                <set name="personagem_escolhido">sim</set>
+            </think> ❄️ Às vezes, coração
+            frio só precisa de sorriso quente. ♨️ </template>
     </category>
-    <!--  -->
 
-    <!-- GNAR -->
     <category>
-        <pattern>GNAR</pattern>
+        <pattern>* BRAUM</pattern>
         <template>
             <think>
-                <set name="topic">GNAR</set>
-            </think>
-        </template>
+                <set name="topic">BRAUM</set>
+            </think> Fiquei atrás de Braum. 🛡️ </template>
+    </category>
+
+    <category>
+        <pattern>BRAUM *</pattern>
+        <template>
+            <think>
+                <set name="topic">BRAUM</set>
+            </think> BRAUM selecionado! 🛡️ Agora você
+            pode conversar com ele. </template>
+    </category>
+
+    <category>
+        <pattern>* BRAUM *</pattern>
+        <template>
+            <think>
+                <set name="topic">BRAUM</set>
+            </think> Bons momentos, bons amigos… O que
+            pode ser melhor? 😁 </template>
     </category>
     <!--  -->
 
     <!-- RAMMUS -->
     <category>
-        <pattern>4</pattern>
+        <pattern>3</pattern>
         <template>
             <think>
                 <set name="topic">RAMMUS</set>
@@ -75,12 +139,4 @@
             </think> Ok, RAMMUS selecionado! 🦔 </template>
     </category>
     <!--  -->
-
-    <!-- FALLBACK -->
-    <category>
-        <pattern>*</pattern>
-        <template>Não entendi... digite corretamente o nome do personagem, ou seu número
-            correspondente!</template>
-    </category>
-
 </aiml>

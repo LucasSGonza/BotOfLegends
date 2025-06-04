@@ -1,3 +1,5 @@
+from flask import Flask, request, jsonify, render_template
+
 # Importa o módulo sys para acessar argumentos da linha de comando e sair do programa se necessário
 import sys
 
@@ -10,6 +12,12 @@ import re
 
 # Biblioteca para interagir com o sistema de arquivos
 import os
+
+# Inicializa app Flask
+app = Flask(__name__)
+
+# Inicializa kernel AIML
+kernel = aiml.Kernel()
 
 
 def clean_input(text):
@@ -28,7 +36,7 @@ def clean_input(text):
     return text
 
 
-def load_aiml_files(kernel, aiml_path):
+def load_aiml_files(kernel, aiml_path="aiml"):
     """
     Função que carrega todos os arquivos .aiml encontrados em um diretório:
     - Verifica se o caminho é válido
@@ -52,13 +60,51 @@ def load_aiml_files(kernel, aiml_path):
         kernel.learn(caminho_completo)
 
 
-def main():
+# Carrega os arquivos AIML ao iniciar a API
+try:
+    load_aiml_files(kernel)
+    kernel.setPredicate("personagem_escolhido", "nao")
+except FileNotFoundError as e:
+    print(e)
+    exit(1)
+
+
+@app.route("/chat", methods=["POST"])
+def chat():
     """
-    Função principal:
-    - Lê argumentos da linha de comando
-    - Inicializa o interpretador AIML
-    - Entra em um loop para processar mensagens do usuário
+    Rota POST /chat
+    Recebe: {"message": "texto"}
+    Retorna: {"response": "resposta do bot"}
     """
+    data = request.get_json()
+    message = data.get("message", "").strip()
+
+    if not message:
+        return jsonify({"response": "Mensagem vazia. Tente novamente."})
+
+    cleaned = clean_input(message)
+    response = kernel.respond(cleaned)
+
+    return jsonify({"response": response})
+
+
+@app.route("/health-check")
+def status():
+    return "🤖 BotOfLegends API está no ar!"
+
+
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+    """
+    def main():
+    
+    # Função principal:
+    # - Lê argumentos da linha de comando
+    # - Inicializa o interpretador AIML
+    # - Entra em um loop para processar mensagens do usuário
+
     if len(sys.argv) < 2:
         print("Uso: python botOfLegends.py aiml/")
         sys.exit(1)  # Se nenhum argumento for passado, finaliza com erro
@@ -71,7 +117,9 @@ def main():
     load_aiml_files(k, aiml_dir)  # Carrega os arquivos .aiml no kernel
 
     print("🤖 Chatbot iniciado. Digite 'sair' para encerrar.\n")
-    print("Olá, bem vindo ao 'BotOfLegends'! Qual qual desses personagens você deseja conversar?")
+    print(
+        "Olá, bem vindo ao 'BotOfLegends'! Qual qual desses personagens você deseja conversar?"
+    )
     print("1 - Garen\n2 - Braum\n3 - Gnar\n4 - Rammus\n")
 
     # Loop principal do chatbot
@@ -88,8 +136,9 @@ def main():
             message
         )  # Envia a mensagem para o kernel AIML e obtém resposta
         print(response)  # Exibe a resposta no terminal
+    """
 
 
-# Garante que a função main só será executada se o script for rodado diretamente
 if __name__ == "__main__":
-    main()
+    # Roda o servidor Flask localmente
+    app.run(host="0.0.0.0", port=5000, debug=True)

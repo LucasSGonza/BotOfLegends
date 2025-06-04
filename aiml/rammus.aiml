@@ -3,8 +3,7 @@
 		<category>
 			<pattern>QUAL SEU *</pattern>
 			<template>
-				<star />? ...Rammus...Ok...
-			</template>
+				<star />? ...Rammus...Ok... </template>
 		</category>
 		<category>
 			<pattern>*</pattern>
