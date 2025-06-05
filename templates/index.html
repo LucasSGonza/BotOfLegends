@@ -52,45 +52,53 @@
     </div>
 
     <script>
+      // Função responsável por adicionar uma nova mensagem ao chat (tanto do usuário quanto do bot)
       function appendMessage(cls, text) {
-        const msgBox = document.getElementById("messages");
-        const div = document.createElement("div");
-        div.className = `message ${cls}`;
-        div.innerText = text;
-        msgBox.appendChild(div);
-        msgBox.scrollTop = msgBox.scrollHeight;
+        const msgBox = document.getElementById("messages"); // Pega a <div> onde as mensagens são exibidas
+
+        const div = document.createElement("div"); // Cria um novo elemento <div> para a mensagem
+        div.className = `message ${cls}`; // Define a classe: "message user" ou "message bot"
+        div.innerText = text; // Insere o texto dentro da <div>
+        msgBox.appendChild(div); // Adiciona a nova mensagem dentro da área de mensagens
+        msgBox.scrollTop = msgBox.scrollHeight; // Faz o scroll automático para mostrar a última mensagem
       }
 
+      // Função chamada ao clicar no botão "Enviar" ou pressionar Enter
       async function send() {
-        const input = document.getElementById("input");
-        const msg = input.value.trim();
+        const input = document.getElementById("input"); // Pega o campo de entrada do usuário
+        const msg = input.value.trim(); // Lê o texto digitado e remove espaços em branco nas pontas
 
-        if (!msg) return;
+        if (!msg) return; // Se a mensagem estiver vazia, não faz nada
 
-        appendMessage("user", msg);
-        input.value = "";
+        appendMessage("user", msg); // Exibe a mensagem do usuário na interface
+        input.value = ""; // Limpa o campo de texto
 
         try {
+          // Envia a mensagem para o servidor Flask usando a rota POST /chat
           const res = await fetch("/chat", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: msg }),
+            method: "POST", // Define o método HTTP
+            headers: { "Content-Type": "application/json" }, // Diz que estamos enviando JSON
+            body: JSON.stringify({ message: msg }), // Converte a mensagem em string JSON
           });
 
-          const data = await res.json();
-          appendMessage("bot", data.response);
+          const data = await res.json(); // Espera e interpreta a resposta do servidor como JSON
 
+          appendMessage("bot", data.response); // Exibe a resposta do bot na interface
+
+          // Se o bot sinalizou que a conversa deve encerrar (encerrar = true)
           if (data.encerrar === true) {
-            appendMessage("bot", "🚫 Chat encerrado.");
-            input.disabled = true;
-            document.getElementById("send").disabled = true;
+            appendMessage("bot", "🚫 Chat encerrado."); // Exibe mensagem de encerramento
+            input.disabled = true; // Desativa o campo de entrada
+            document.getElementById("send").disabled = true; // Desativa o botão "Enviar"
           }
         } catch (error) {
+          // Se houve erro na requisição (ex: servidor offline), exibe mensagem de erro
           appendMessage("bot", "Erro ao conectar com o servidor.");
-          console.error("Erro na API:", error);
+          console.error("Erro na API:", error); // Exibe detalhes do erro no console do navegador
         }
       }
 
+      // Função executada automaticamente quando a página termina de carregar
       window.onload = function () {
         appendMessage(
           "bot",
