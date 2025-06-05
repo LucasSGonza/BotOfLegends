@@ -85,7 +85,11 @@ def chat():
     cleaned = clean_input(message)
     response = kernel.respond(cleaned)
 
-    return jsonify({"response": response})
+    # Detecta se AIML marcou o encerramento
+    encerrar = kernel.getPredicate("encerrar")
+    should_exit = encerrar.lower() == "sim"
+
+    return jsonify({"response": response, "encerrar": should_exit})
 
 
 @app.route("/health-check")
@@ -96,47 +100,6 @@ def status():
 @app.route("/")
 def home():
     return render_template("index.html")
-
-    """
-    def main():
-    
-    # Função principal:
-    # - Lê argumentos da linha de comando
-    # - Inicializa o interpretador AIML
-    # - Entra em um loop para processar mensagens do usuário
-
-    if len(sys.argv) < 2:
-        print("Uso: python botOfLegends.py aiml/")
-        sys.exit(1)  # Se nenhum argumento for passado, finaliza com erro
-
-    aiml_dir = sys.argv[
-        1
-    ]  # Primeiro argumento da linha de comando: pasta com arquivos .aiml
-    k = aiml.Kernel()  # Cria uma instância do motor AIML
-
-    load_aiml_files(k, aiml_dir)  # Carrega os arquivos .aiml no kernel
-
-    print("🤖 Chatbot iniciado. Digite 'sair' para encerrar.\n")
-    print(
-        "Olá, bem vindo ao 'BotOfLegends'! Qual qual desses personagens você deseja conversar?"
-    )
-    print("1 - Garen\n2 - Braum\n3 - Gnar\n4 - Rammus\n")
-
-    # Loop principal do chatbot
-    while True:
-        message = input("> ")  # Lê a mensagem digitada pelo usuário no terminal
-
-        # Condição de parada do chatbot
-        if message.lower() in ("sair", "exit", "quit"):
-            print("Encerrando chatbot.")
-            break
-
-        message = clean_input(message)  # Limpa a mensagem com a função definida
-        response = k.respond(
-            message
-        )  # Envia a mensagem para o kernel AIML e obtém resposta
-        print(response)  # Exibe a resposta no terminal
-    """
 
 
 if __name__ == "__main__":

@@ -79,6 +79,12 @@
 
           const data = await res.json();
           appendMessage("bot", data.response);
+
+          if (data.encerrar === true) {
+            appendMessage("bot", "🚫 Chat encerrado.");
+            input.disabled = true;
+            document.getElementById("send").disabled = true;
+          }
         } catch (error) {
           appendMessage("bot", "Erro ao conectar com o servidor.");
           console.error("Erro na API:", error);
